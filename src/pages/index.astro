@@ -1,0 +1,111 @@
+---
+import Layout from "../layouts/Layout.astro";
+import CircularImage from "../components/circularImage.astro";
+import Start from "../components/controls/start.astro";
+import Stop from "../components/controls/start.astro";
+---
+
+<Layout title="Welcome to Astro.">
+  <main id="clickLisent">
+    <div class="contenedor--image">
+      <CircularImage />
+      <div id="changeControl"></div>
+    </div>
+    <h1>NeoMusic</h1>
+    <p id="insertedFrase"></p>
+  </main>
+  <div class="controls">
+    <input
+      type="range"
+      id="volumeControl"
+      min="0"
+      max="1"
+      step="0.01"
+      value="0.5"
+    />
+  </div>
+  <p>Click To Play / Pause</p>
+</Layout>
+
+<style>
+  main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  h1 {
+    color: white;
+    font-weight: 800;
+  }
+
+  p {
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    margin: 1.5rem;
+  }
+  .clickListen {
+    width: 10rem;
+    height: 10rem;
+    background-color: red;
+  }
+
+  #changeControl {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+
+  .controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  @media (max-width: 350px) {
+    #changeControl {
+      top: 44%;
+    }
+  }
+  @media (min-width: 630px) {
+    #changeControl {
+      top: 46%;
+    }
+  }
+</style>
+<script>
+  const frasesInspiradoras = [
+    "Deja que la música te envuelva y te lleve a lugares de paz y serenidad.",
+    "Descubre la armonía en cada nota y encuentra tu refugio en la melodía.",
+    "En el suave susurro de las notas, encuentra la calma que anhelas.",
+    "Deja que la música sea tu compañera en el viaje hacia la tranquilidad interior.",
+    "Encuentra la belleza en la simplicidad de cada melodía.",
+    "En el ritmo suave del lofi, encuentra la inspiración para crear tu propio mundo.",
+    "Deja que la música sea el eco de tu paz interior y la melodía de tu serenidad.",
+    "En cada compás, encuentra un momento de pausa y reflexión.",
+    "Sumérgete en el sonido relajante del chill y encuentra la paz en medio del caos.",
+    "Deja que la música sea tu refugio, tu escape y tu inspiración en cada momento.",
+  ];
+
+  let indexMessageHeader = Math.floor(
+    Math.random() * frasesInspiradoras.length
+  );
+
+  function InsertarTexto() {
+    const elementSubTitle = document.getElementById("insertedFrase");
+    if (elementSubTitle instanceof HTMLElement) {
+      elementSubTitle.innerHTML = frasesInspiradoras[indexMessageHeader];
+      indexMessageHeader = (indexMessageHeader + 1) % frasesInspiradoras.length;
+      setTimeout(InsertarTexto, 10000);
+    }
+  }
+
+  InsertarTexto();
+</script>
